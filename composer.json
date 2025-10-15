@@ -8,5 +8,10 @@
             "email": "36940932+JasomRocha@users.noreply.github.com"
         }
     ],
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    },
     "require": {}
 }
