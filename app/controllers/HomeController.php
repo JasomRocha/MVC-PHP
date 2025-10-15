@@ -10,4 +10,9 @@ class HomeController extends Controller{
         $this->view('home/index', $data); // passamos o array pra o controller pai que já espera um array
         return;
     }
+    public function contact(){
+        $usuario = new Usuario();
+        $data = $usuario->getUserData(); // vai receber um array
+        $this->view('home/contact', $data);
+    }
 }
