@@ -1,0 +1,12 @@
+{
+    "name": "jasom/mvc",
+    "description": "MVC STRUCTURE",
+    "type": "no",
+    "authors": [
+        {
+            "name": "Jasom Rocha",
+            "email": "36940932+JasomRocha@users.noreply.github.com"
+        }
+    ],
+    "require": {}
+}
