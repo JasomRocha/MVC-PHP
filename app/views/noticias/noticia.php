@@ -9,11 +9,7 @@
     <h1> Noticias </h1>
     <p>Essa é a pagina de noticias.</p>
     <hr>
-    <label for="lista de noticias">Todas as Noticias</label>
-    <ul id="listas de noticia">
-        <li>Noticia 1</li>
-        <li>Noticia 2</li>
-        <li>NOticia 3</li>
-    </ul>
+    <label for="lista de noticias">Texto da noticia numero <?= $id_noticia ?? ' '?>
+    </label>
 </body>
 </html>

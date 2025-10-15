@@ -2,33 +2,52 @@
 // Pegando parametros da URL e definindo qual o controlador que será chamado
 
 require_once __DIR__ . '/../controllers/HomeController.php';
-require_once __DIR__ . '/../controllers/NoticiasController.php';
-require_once __DIR__ . '/../controllers/NotFoundController.php';
+require_once __DIR__ . '/../controllers/errors/HttpErrorController.php';
 class Router {
     public function dispatch($url) {
+      try{
        $url = trim($url, '/');
        $parts =$url ? explode('/', $url) : [];
 
-       $controllerName = $parts[0] ?? 'Home'; // Se nao vier nada no queryParam coloca Home
+       $controllerName = $parts[0] ?? 'home'; // Se nao vier nada no queryParam coloca Home
+       
        $controllerName = ucfirst($controllerName) . 'Controller'; // Concatena com Controller
        
        if(!class_exists($controllerName)){
-          $controller = 'NotFoundController';
-          $controller = new $controller();
-          $controller->index();
-          exit;
+            throw new Exception('404');
        } 
+
         $controller = new $controllerName();
 
         $actionName = $parts[1] ?? 'index';
         
-        if(!method_exists($controllerName, $actionName)){
-          $actionName= 'index';
-          $controller = 'NotFoundController';
-          $controller = new $controller();
-          $controller->$actionName();
-          exit;
-       } 
-        $controller->$actionName();
-    }
-}
+      if(!method_exists($controllerName, $actionName)){
+         throw new Exception('404');
+      }
+       
+      // Exemplo de verificação de permissão (403)
+      if ($controllerName === 'HomeController' && $actionName === 'editar') {
+         throw new Exception('403');
+      }
+
+      $params = array_slice($parts, 2);    
+      //$controller->$actionName();
+      call_user_func_array([$controller, $actionName], $params);
+
+      }catch(Exception $e){
+         $errorController = new HttpErrorController();
+
+         switch ($e->getMessage()) {
+            case '404':
+               $errorController->notFound();
+                  break;
+            case '403':
+               $errorController->forbidden();
+               break;
+            default:
+               $errorController->internalError($e);
+               break;
+         }
+      }
+   }
+}   

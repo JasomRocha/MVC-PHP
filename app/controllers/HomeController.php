@@ -15,4 +15,7 @@ class HomeController extends Controller{
         $data = $usuario->getUserData(); // vai receber um array
         $this->view('home/contact', $data);
     }
+    public function editar($params = []){
+        return $this->view('noticias/noticia', ['id_noticia'=> $params]);
+    }
 }
