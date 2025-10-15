@@ -1,5 +1,6 @@
 <?php
-
+namespace App\Controllers\Errors;
+use  App\Core\Controller;
 class HttpErrorController extends Controller{
     public function notFound($params = []){
         http_response_code(404);

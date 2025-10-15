@@ -1,5 +1,5 @@
 <?php
-
+namespace App\Core;
 // Controlador pai, classe que já trata os caminhos para as views
 class Controller{
     protected function view($view, $viewData = []){

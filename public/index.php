@@ -1,8 +1,7 @@
 <?php
-
-require_once __DIR__ . '/../app/core/Router.php'; // Usa caminho absoluto
 require_once __DIR__ .'/../vendor/autoload.php';
 
+use App\Core\Router;
 
 $url = $_GET['url'] ?? '';
 

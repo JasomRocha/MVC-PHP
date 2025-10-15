@@ -1,17 +1,23 @@
 <?php
 // Pegando parametros da URL e definindo qual o controlador que será chamado
+namespace App\Core;
+require_once __DIR__ . '/functions.php';
+use App\Controllers\HomeController;
+use App\Models\Usuario;
+use App\Controllers\errors\HttpErrorController;
+use function App\core\dd;
+use Exception;
 
-require_once __DIR__ . '/../controllers/HomeController.php';
-require_once __DIR__ . '/../controllers/errors/HttpErrorController.php';
+
 class Router {
     public function dispatch($url) {
       try{
        $url = trim($url, '/');
        $parts =$url ? explode('/', $url) : [];
 
-       $controllerName = $parts[0] ?? 'home'; // Se nao vier nada no queryParam coloca Home
+       $controllerName = ($parts[0] ?? 'home'); // Se nao vier nada no queryParam coloca Home
        
-       $controllerName = ucfirst($controllerName) . 'Controller'; // Concatena com Controller
+       $controllerName = 'App\Controllers\\' . ucfirst($controllerName) . 'Controller'; // Concatena com Controller
        
        if(!class_exists($controllerName)){
             throw new Exception('404');
@@ -20,7 +26,9 @@ class Router {
         $controller = new $controllerName();
 
         $actionName = $parts[1] ?? 'index';
-        
+
+        //dd($actionName, $controllerName, $parts, $url);
+
       if(!method_exists($controllerName, $actionName)){
          throw new Exception('404');
       }
