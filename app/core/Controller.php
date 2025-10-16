@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Core;
 use Exception;
 // Controlador pai, classe que já trata os caminhos para as views
