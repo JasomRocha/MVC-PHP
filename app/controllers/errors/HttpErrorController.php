@@ -14,6 +14,7 @@ class HttpErrorController extends Controller{
 
     public function internalError($params = []){
         http_response_code(500);
+        var_dump($params);
         return $this->view('Erros/500'); 
     }
 }
